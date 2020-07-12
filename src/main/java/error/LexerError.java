@@ -17,7 +17,8 @@ public class LexerError extends BaseErrorListener
 
     @Override public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e)
     {
-        Platform.runLater(() -> textArea.appendText("Linea : " + line + " -> " + msg + "\n"));
+    	int linea = line;
+        Platform.runLater(() -> textArea.appendText("Linea : " + linea + " -> " + msg + "\n"));
         Controller.lexerError = true;
     }
 }

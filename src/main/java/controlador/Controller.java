@@ -3,10 +3,12 @@ package controlador;
 import listeners.CodeGeneratorListener;
 import listeners.SemanticListener;
 import abs.CodeGen;
+import abs.SymbolTable;
 //import abs.SymbolTable;
 import abs.newToken;
 import antlr.MiniJavaLexer;
 import antlr.MiniJavaParser;
+import entidades.Identifier;
 import error.LexerError;
 import error.ParserError;
 
@@ -18,6 +20,7 @@ import org.antlr.v4.gui.Trees;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,12 +31,12 @@ public class Controller
     @FXML TableColumn<newToken, String> tLexeme;
     @FXML TableColumn<newToken, String> tClass;
     
-    //@FXML TableView<SymbolTable> tablaSimbolos;
-    //@FXML TableColumn<SymbolTable, String> sNombre;
-    //@FXML TableColumn<SymbolTable, String> sTipo;
-    //@FXML TableColumn<SymbolTable, String> sValor;
-    //@FXML TableColumn<SymbolTable, String> sPosicion;
-    //@FXML TableColumn<SymbolTable, String> sAlcance;
+    @FXML TableView<SymbolTable> tablaSimbolosView;
+    @FXML TableColumn<SymbolTable, String> sNombre;
+    @FXML TableColumn<SymbolTable, String> sTipo;
+    @FXML TableColumn<SymbolTable, String> sValor;
+    @FXML TableColumn<SymbolTable, String> sPosicion;
+    @FXML TableColumn<SymbolTable, String> sAlcance;
     
     @FXML TableView<CodeGen> codeTable;
     @FXML TableColumn<CodeGen, String> op;
@@ -52,7 +55,7 @@ public class Controller
     public static ArrayList<String> classId = new ArrayList<>();
     public static HashMap<String, String> map = new HashMap<>();
     
-    //public static ArrayList<SymbolTable> TablaSim = new ArrayList<>();
+    public static ArrayList<SymbolTable> TablaSim = new ArrayList<>();
     public static ArrayList<CodeGen> codeGens = new ArrayList<>();
 
     public void initialize()
@@ -61,6 +64,13 @@ public class Controller
         tLexeme.setCellValueFactory(new PropertyValueFactory<>("tok"));
         tClass.setCellValueFactory(new PropertyValueFactory<>("cl"));
 
+        tablaSimbolosView.setPlaceholder(new Label("Click en Ejecutar"));
+        sNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        sTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+        sValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+        sPosicion.setCellValueFactory(new PropertyValueFactory<>("posicion"));
+        sAlcance.setCellValueFactory(new PropertyValueFactory<>("alcance"));
+        
         //codeTable.setPlaceholder(new Label("Click en Ejecutar"));
         //op.setCellValueFactory(new PropertyValueFactory<>("op"));
         //src1.setCellValueFactory(new PropertyValueFactory<>("src1"));
@@ -73,14 +83,17 @@ public class Controller
     {
         tokenView.getItems().clear();
         tokenView.refresh();
-        codeTable.getItems().clear();
-        codeTable.refresh();
+        //codeTable.getItems().clear();
+        //codeTable.refresh();
+        tablaSimbolosView.getItems().clear();
+        tablaSimbolosView.refresh();
         status.clear();
 
         Controller.variables.clear();
         Controller.methodId.clear();
         Controller.classId.clear();
         Controller.map.clear();
+        Controller.TablaSim.clear();
         Controller.codeGens.clear();
 
         Controller.lexerError  = false;
@@ -98,8 +111,10 @@ public class Controller
         runButton.setDisable(true);
         tokenView.getItems().clear();
         tokenView.refresh();
-        codeTable.getItems().clear();
-        codeTable.refresh();
+        //codeTable.getItems().clear();
+        //codeTable.refresh();
+        tablaSimbolosView.getItems().clear();
+        tablaSimbolosView.refresh();
         status.clear();
 
         CharStream inputStream = CharStreams.fromString(text.getText());
@@ -135,14 +150,14 @@ public class Controller
             {
                 status.appendText("Parsing y Análisis Semántico terminado exitosamente!\n");
 
-                ParseTreeWalker treeWalker = new ParseTreeWalker();
-                treeWalker.walk(new CodeGeneratorListener(), tree);
+                //ParseTreeWalker treeWalker = new ParseTreeWalker();
+                //treeWalker.walk(new CodeGeneratorListener(), tree);
 
-                //status.appendText("Generación de Código terminado exitosamente!\n");
-                //tablaSimbolos.getItems().addAll(TablaSim);
+                status.appendText("Generación de Código terminado exitosamente!\n");
+                tablaSimbolosView.getItems().addAll(TablaSim);
                 //codeTable.getItems().addAll(codeGens);
 
-                new Thread(() -> Trees.inspect(tree, parser)).start();
+                //new Thread(() -> Trees.inspect(tree, parser)).start();
             }
 
         }

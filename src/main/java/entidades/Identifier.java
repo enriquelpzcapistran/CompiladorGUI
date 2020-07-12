@@ -4,41 +4,41 @@ import java.util.ArrayList;
 
 public class Identifier {
 	
-	private String name,type,value,scope;
-	private int line,faux;
-	private ArrayList<Token> exp;
-	public Identifier(String n, String t,String v,int f,int fa){
-		name = n; type = t; value = v; line = f; faux = fa;
+	public String nombre,tipo,valor,alcance;
+	public int posicion,faux;
+	public ArrayList<Token> exp;
+	public Identifier(String nombre, String tipo,String valor,int f,int fa){
+		this.nombre = nombre; this.tipo = tipo; this.valor = valor; this.posicion = posicion; this.faux = fa;
 	}
-	public Identifier(String n, String t,String v,int f){
-		name = n; type = t; value = v; line = f;
+	public Identifier(String nombre, String tipo,String valor,int posicion){
+		this.nombre = nombre; this.tipo = tipo; this.valor = valor; this.posicion = posicion;
 	}
-	public Identifier(String n, String t,String v,int f,String al){
-		name = n; type = t; value = v; line = f; scope = al;
+	public Identifier(String nombre, String tipo,String valor,int posicion,String alcance){
+		this.nombre = nombre; this.tipo = tipo; this.valor = valor; this.posicion = posicion; this.alcance = alcance;
 	}
 	public String getName() {
-		return name;
+		return nombre;
 	}
 	public void setName(String nombre) {
-		this.name = nombre;
+		this.nombre = nombre;
 	}
 	public String getType() {
-		return type;
+		return tipo;
 	}
 	public void setType(String tipo) {
-		this.type = tipo;
+		this.tipo = tipo;
 	}
 	public String getValue() {
-		return value;
+		return valor;
 	}
 	public void setValue(String valor) {
-		this.value = valor;
+		this.valor = valor;
 	}
 	public int getLine() {
-		return line;
+		return posicion;
 	}
-	public void setLine(int fila) {
-		this.line = fila;
+	public void setLine(int posicion) {
+		this.posicion = posicion;
 	}
 	public int getFaux() {
 		return faux;
@@ -53,15 +53,15 @@ public class Identifier {
 		exp = e;
 	}
 	public String getScope() {
-		return scope;
+		return alcance;
 	}
 	public void setScope(String alcance) {
-		this.scope = alcance;
+		this.alcance = alcance;
 	}
 	public String retExpression(){
 		String res = "";
 		if( exp != null && exp.size() != 0){
-			res = name+" =";
+			res = nombre+" =";
 			for(Token token : exp) 
 				res += " "+token.getToken();
 		}
