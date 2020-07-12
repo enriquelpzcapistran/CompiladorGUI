@@ -1,6 +1,7 @@
 package listeners;
 
 import abs.CodeGen;
+import abs.SymbolTable;
 import antlr.MiniJavaBaseListener;
 import antlr.MiniJavaParser;
 import controlador.Controller;

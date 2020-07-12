@@ -32,7 +32,7 @@
           <!--Your comment-->
           <Tab text="Tabla de Símbolos">
                <content>
-                  <TableView fx:id="codeTable" prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="tablaSimbolosView" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="sNombre" editable="false" prefWidth="55.0" text="Nombre" />
                       <TableColumn fx:id="sTipo" editable="false" prefWidth="40.0" text="Tipo" />
