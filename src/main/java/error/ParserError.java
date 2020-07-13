@@ -17,7 +17,7 @@ public class ParserError extends BaseErrorListener
 
     @Override public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e)
     {
-    	int linea = line;
+    	int linea = line-1;
         Platform.runLater(() -> textArea.appendText("Línea : " + linea + " -> " + msg + " \n"));
         Controller.parserError = true;
     }

@@ -18,7 +18,6 @@ public class SemanticListener extends MiniJavaBaseListener
     @Override public void exitClassDeclaration(MiniJavaParser.ClassDeclarationContext ctx)
     {
         String id = ctx.Id().getText();
-
         if (Controller.classId.contains(id))
             parser.notifyErrorListeners("Clase duplicada : " + id);
 
@@ -50,19 +49,21 @@ public class SemanticListener extends MiniJavaBaseListener
             if (t2 != null)
             {
                 if (!t1.contains(t2))
-                    parser.notifyErrorListeners("No se puede asignar '" + t2 + "' a '" + t1 + "'");
+                    parser.notifyErrorListeners("En variable -> "+ id1 +" -> No se puede asignar '" + t2 + "' a '" + t1 + "'");
             }
 
         }
+        Controller.value.add(ctx.Id().getText());
     }
 
     @Override public void exitMethodDeclaration(MiniJavaParser.MethodDeclarationContext ctx)
     {
         String id = ctx.Id().getText();
 
-        if (Controller.methodId.contains(id))
+        if (Controller.methodId.contains(id)){
             parser.notifyErrorListeners("Método duplicado : " + id);
-
+        	Controller.methodId.add(id);
+        	}
         else
             Controller.methodId.add(id);
     }
@@ -82,6 +83,9 @@ public class SemanticListener extends MiniJavaBaseListener
     {
 
         String id = ctx.Id().getText();
+        String posicion = ctx.Id().getSymbol().toString();
+        posicion = posicion.substring(ctx.Id().getSymbol().toString().length() - 4);
+        Controller.pos.add(posicion.substring(0,3));
 
         if (Controller.variables.contains(id))
             parser.notifyErrorListeners("Variable duplicada : " + id);
@@ -107,10 +111,13 @@ public class SemanticListener extends MiniJavaBaseListener
                 else
                 {
                     if (!t1.contains(t2))
-                        parser.notifyErrorListeners("No se puede asignar '" + t2 + "' a '" + t1 + "'");
+                        parser.notifyErrorListeners("En variable -> "+ id1 +" -> No se puede asignar '" + t2 + "' a '" + t1 + "'");
                 }
             }
+            Controller.types.add(t1);
         }
+        //Controller.value.add(Controller.map.get(ctx.getText()));
+        //Controller.value.add(Controller.variables.);
     }
 
     @Override public void exitGoExp(MiniJavaParser.GoExpContext ctx)
@@ -118,13 +125,13 @@ public class SemanticListener extends MiniJavaBaseListener
         if (Controller.variables.contains(ctx.reference().getText()) && ctx.expression().reference() != null)
         {
             String t1 = Controller.map.get(ctx.reference().getText());
-
             String id2 = ctx.expression().reference().getText();
             String t2 = Controller.map.get(id2);
 
             if (!t1.equals(t2))
-                parser.notifyErrorListeners("No se puede asignar '" + t2 + "' a '" + t1 + "'");
+                parser.notifyErrorListeners("En variable -> "+ id2 +" -> No se puede asignar '" + t2 + "' a '" + t1 + "'");
         }
+        Controller.value.add(Controller.map.get(ctx.reference().getText()));
     }
 
 }
