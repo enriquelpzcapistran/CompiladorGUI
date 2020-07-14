@@ -39,6 +39,7 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	
 	@Override public void enterFieldDeclaration(MiniJavaParser.FieldDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
