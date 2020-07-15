@@ -70,13 +70,11 @@ public class Controller
 
     public void initialize()
     {
-    	
-    	System.out.println(variables.toString());
-        tokenView.setPlaceholder(new Label("Click en Ejecutar"));
+        tokenView.setPlaceholder(new Label("Haga click en Ejecutar"));
         tLexeme.setCellValueFactory(new PropertyValueFactory<>("tok"));
         tClass.setCellValueFactory(new PropertyValueFactory<>("cl"));
 
-        tablaSimbolosView.setPlaceholder(new Label("Click en Ejecutar"));
+        tablaSimbolosView.setPlaceholder(new Label("Haga click en Ejecutar"));
         sNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
         sTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         sValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
@@ -142,7 +140,7 @@ public class Controller
             newToken newToken = new newToken(token.getText(), lexer.getVocabulary().getSymbolicName(token.getType()));
             if (newToken.getCl().equals("ERROR"))
             {
-                status.appendText("Línea : " + token.getLine() + " -> " + newToken.getTok() + " no es un ID. \n");
+                status.appendText("Linea : " + token.getLine() + " -> " + newToken.getTok() + " no es un ID. \n");
                 Controller.lexerError = true;
             }
             else
@@ -152,7 +150,7 @@ public class Controller
         if(!lexerError)
         {
 
-            status.setText("Análisis Léxico terminado exitosamente!\n");
+            status.setText("Analisis Lexico terminado exitosamente!\n");
 
             MiniJavaParser parser = new MiniJavaParser(tokenStream);
             parser.removeErrorListeners();
@@ -161,7 +159,7 @@ public class Controller
             ParserRuleContext tree = parser.minijava();
             if (!parserError)
             {
-                status.appendText("Parsing y Análisis Semántico terminado exitosamente!\n");
+                status.appendText("Parsing y Analisis Semantico terminado exitosamente!\n");
 
                 //ParseTreeWalker treeWalker = new ParseTreeWalker();
                 //treeWalker.walk(new CodeGeneratorListener(), tree);
@@ -179,9 +177,12 @@ public class Controller
                 status.appendText("\nPosicion -> "+ pos.toString());
                 status.appendText("\nAlcance Metodo -> "+methodId.toString());
                 status.appendText("\nAlcance Clase -> "+classId.toString());
-            	System.out.println(variables.toString());
-            	System.out.println(methodId.toString());
-            	System.out.println(classId.toString());
+            	System.out.println("Variables -> " + variables.toString());
+                System.out.println("Tipos -> " + types.toString());
+            	System.out.println("Metodos -> " + methodId.toString());
+                System.out.println("Valores -> " + value.toString());
+            	System.out.println("Nombre Clase -> " + classId.toString());
+                System.out.println("Tabla simbolos -> " + TablaSim.toString());
             	System.out.println(map.toString().charAt(1));
             	//sNombre.setCellValueFactory(new PropertyValueFactory<>(variables.get(0)));
                 //tablaSimbolosView.getColumns().add(variables.toString());

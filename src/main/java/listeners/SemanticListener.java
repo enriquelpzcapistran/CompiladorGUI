@@ -61,7 +61,7 @@ public class SemanticListener extends MiniJavaBaseListener
         String id = ctx.Id().getText();
 
         if (Controller.methodId.contains(id)){
-            parser.notifyErrorListeners("Método duplicado : " + id);
+            parser.notifyErrorListeners("Metodo duplicado : " + id);
         	Controller.methodId.add(id);
         	}
         else
