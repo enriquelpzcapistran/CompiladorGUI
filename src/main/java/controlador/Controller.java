@@ -104,6 +104,11 @@ public class Controller
         Controller.methodId.clear();
         Controller.classId.clear();
         Controller.map.clear();
+        Controller.value.clear();
+        Controller.pos.clear();
+        Controller.types.clear();
+        
+        
         Controller.TablaSim.clear();
         //Controller.codeGens.clear();
         //Controller.types.clear();
@@ -172,13 +177,13 @@ public class Controller
                 
                 status.appendText("--------------------------------------"
                 		+ "\nGenerando Tabla de Simbolos\n--------------------------------------\n");
-                status.appendText("Simbolo:\n");
-                status.appendText("Nombre -> "+variables.toString());
-                status.appendText("\nTipo -> "+types.toString());
-                status.appendText("\nValor -> [1, 10, false] "+ value.toString());
-                status.appendText("\nPosicion -> "+ pos.toString());
+                status.appendText("Tabla de Simbolos:\n");
+                status.appendText("Nombre ----> \t\t"+variables.toString());
+                status.appendText("\nTipo --------> \t\t"+types.toString());
+                status.appendText("\nValor -------> \t\t"+ value.toString());
+                status.appendText("\nLínea:Columna -> \t"+ pos.toString());
                 status.appendText("\nAlcance Metodo -> "+methodId.toString());
-                status.appendText("\nAlcance Clase -> "+classId.toString());
+                status.appendText("\nAlcance Clase -> \t"+classId.toString());
             	System.out.println(variables.toString());
             	System.out.println(methodId.toString());
             	System.out.println(classId.toString());
