@@ -64,6 +64,7 @@ public class Controller
     public static ArrayList<String> value = new ArrayList<>();
     public static ArrayList<String> types = new ArrayList<>();
     public static ArrayList<String> pos = new ArrayList<>();
+    public static ArrayList<String> scope = new ArrayList<>();
     
     public static ArrayList<ArrayList<String>> TablaSim = new ArrayList<>();
     //public static ArrayList<CodeGen> codeGens = new ArrayList<>();
@@ -76,7 +77,7 @@ public class Controller
         tLexeme.setCellValueFactory(new PropertyValueFactory<>("tok"));
         tClass.setCellValueFactory(new PropertyValueFactory<>("cl"));
 
-        tablaSimbolosView.setPlaceholder(new Label("Click en Ejecutar"));
+        tablaSimbolosView.setPlaceholder(new Label("Generaciòn de Tabla Abajo"));
         sNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
         sTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         sValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
@@ -107,6 +108,7 @@ public class Controller
         Controller.value.clear();
         Controller.pos.clear();
         Controller.types.clear();
+        Controller.scope.clear();
         
         
         Controller.TablaSim.clear();
@@ -178,12 +180,33 @@ public class Controller
                 status.appendText("--------------------------------------"
                 		+ "\nGenerando Tabla de Simbolos\n--------------------------------------\n");
                 status.appendText("Tabla de Simbolos:\n");
-                status.appendText("Nombre ----> \t\t"+variables.toString());
-                status.appendText("\nTipo --------> \t\t"+types.toString());
-                status.appendText("\nValor -------> \t\t"+ value.toString());
-                status.appendText("\nLínea:Columna -> \t"+ pos.toString());
-                status.appendText("\nAlcance Metodo -> "+methodId.toString());
-                status.appendText("\nAlcance Clase -> \t"+classId.toString());
+                status.appendText("Nombre\tTipo\t\tValor\tLinea:Columna\t\tAlcance Mètodo\tAlcance Clase\n");
+                for(int i = 0; i < variables.size(); i++){
+                	status.appendText(variables.get(i)+"\t\t");
+                	if(types.get(i).equals("boolean")){
+
+                		status.appendText(types.get(i)+"\t");
+                	}else
+                		status.appendText(types.get(i)+"\t\t");
+                	status.appendText(value.get(i)+"\t\t");
+                	status.appendText(pos.get(i)+"\t\t\t\t");
+                	
+                	if(methodId.size() == 1){
+                    	status.appendText(methodId.get(0)+"\t\t\t\t");
+                	}else
+                		status.appendText(methodId.get(i)+"\t\t\t\t");
+                	if(classId.size() == 1){
+                		status.appendText(classId.get(0)+"\t\t\n");
+                	}else
+                		status.appendText(classId.get(i)+"\t\t\n");
+                }
+                //status.appendText("Nombre ----> \t\t"+variables);
+                //status.appendText("\nTipo --------> \t\t"+types.toString());
+                //status.appendText("\nValor -------> \t\t"+ value.toString());
+                //status.appendText("\nLínea:Columna -> \t"+ pos.toString());
+                //status.appendText("\nAlcance Metodo -> "+methodId.toString());
+                //status.appendText("\nAlcance Clase -> \t"+classId.toString());
+                //status.appendText("\nScope -> \t"+scope.toString());
             	System.out.println(variables.toString());
             	System.out.println(methodId.toString());
             	System.out.println(classId.toString());

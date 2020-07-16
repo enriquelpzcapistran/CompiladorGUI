@@ -84,6 +84,7 @@ public class SemanticListener extends MiniJavaBaseListener
 
         String id = ctx.Id().getText();
         String posicion = ctx.Id().getSymbol().toString();
+        //Controller.scope.add(posicion);
         posicion = posicion.substring(ctx.Id().getSymbol().toString().length() - 4);
         Controller.pos.add(posicion.substring(0,3));
 
@@ -118,6 +119,7 @@ public class SemanticListener extends MiniJavaBaseListener
         }
         //Controller.value.add(Controller.map.get(ctx.getText()));
         String val = ctx.getRuleContext().getText();
+        //Controller.scope.add(val);
         Controller.value.add(val.substring(val.indexOf('=')+1, val.indexOf(';')));
     }
 
