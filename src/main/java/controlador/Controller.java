@@ -108,7 +108,14 @@ public class Controller
         Controller.value.clear();
         Controller.pos.clear();
         Controller.types.clear();
+<<<<<<< Updated upstream
         Controller.scope.clear();
+=======
+<<<<<<< Updated upstream
+=======
+        Controller.scope.clear();
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
         
         
         Controller.TablaSim.clear();
@@ -180,6 +187,17 @@ public class Controller
                 status.appendText("--------------------------------------"
                 		+ "\nGenerando Tabla de Simbolos\n--------------------------------------\n");
                 status.appendText("Tabla de Simbolos:\n");
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+                status.appendText("Nombre ----> \t\t"+variables.toString());
+                status.appendText("\nTipo --------> \t\t"+types.toString());
+                status.appendText("\nValor -------> \t\t"+ value.toString());
+                status.appendText("\nLínea:Columna -> \t"+ pos.toString());
+                status.appendText("\nAlcance Metodo -> "+methodId.toString());
+                status.appendText("\nAlcance Clase -> \t"+classId.toString());
+=======
+>>>>>>> Stashed changes
                 status.appendText("Nombre\tTipo\t\tValor\tLinea:Columna\t\tAlcance Mètodo\tAlcance Clase\n");
                 for(int i = 0; i < variables.size(); i++){
                 	status.appendText(variables.get(i)+"\t\t");
@@ -207,6 +225,10 @@ public class Controller
                 //status.appendText("\nAlcance Metodo -> "+methodId.toString());
                 //status.appendText("\nAlcance Clase -> \t"+classId.toString());
                 //status.appendText("\nScope -> \t"+scope.toString());
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
             	System.out.println(variables.toString());
             	System.out.println(methodId.toString());
             	System.out.println(classId.toString());

@@ -10,6 +10,12 @@
 <?import javafx.scene.text.Font?>
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 <AnchorPane id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="781.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.Controller">
    <children>
       <Button fx:id="runButton" layoutX="370.0" layoutY="670.0" mnemonicParsing="false" onAction="#run" prefHeight="36.0" prefWidth="89.0" text="Ejecutar" />
@@ -19,6 +25,11 @@
          </font></TextArea>
       <Button layoutX="64.0" layoutY="682.0" mnemonicParsing="false" onAction="#clean" text="Limpiar" />
       <TabPane layoutX="499.0" layoutY="14.0" prefHeight="524.0" prefWidth="265.0" tabClosingPolicy="UNAVAILABLE">
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 =======
 <AnchorPane id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="770.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.Controller">
    <children>
@@ -29,6 +40,10 @@
          </font></TextArea>
       <Button layoutX="64.0" layoutY="672.0" mnemonicParsing="false" onAction="#clean" text="Limpiar" />
       <TabPane layoutX="499.0" layoutY="25.0" prefHeight="450.0" prefWidth="265.0" tabClosingPolicy="UNAVAILABLE">
+>>>>>>> Stashed changes
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 >>>>>>> Stashed changes
         <tabs>
           <Tab text="Análisis Léxico">

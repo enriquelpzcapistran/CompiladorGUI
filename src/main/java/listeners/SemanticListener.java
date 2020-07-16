@@ -119,7 +119,14 @@ public class SemanticListener extends MiniJavaBaseListener
         }
         //Controller.value.add(Controller.map.get(ctx.getText()));
         String val = ctx.getRuleContext().getText();
+<<<<<<< Updated upstream
         //Controller.scope.add(val);
+=======
+<<<<<<< Updated upstream
+=======
+        //Controller.scope.add(val);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
         Controller.value.add(val.substring(val.indexOf('=')+1, val.indexOf(';')));
     }
 
