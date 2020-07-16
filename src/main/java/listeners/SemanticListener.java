@@ -117,7 +117,8 @@ public class SemanticListener extends MiniJavaBaseListener
             Controller.types.add(t1);
         }
         //Controller.value.add(Controller.map.get(ctx.getText()));
-        //Controller.value.add(Controller.variables.);
+        String val = ctx.getRuleContext().getText();
+        Controller.value.add(val.substring(val.indexOf('=')+1, val.indexOf(';')));
     }
 
     @Override public void exitGoExp(MiniJavaParser.GoExpContext ctx)
@@ -131,7 +132,8 @@ public class SemanticListener extends MiniJavaBaseListener
             if (!t1.equals(t2))
                 parser.notifyErrorListeners("En variable -> "+ id2 +" -> No se puede asignar '" + t2 + "' a '" + t1 + "'");
         }
-        Controller.value.add(Controller.map.get(ctx.reference().getText()));
+        //Controller.value.add("hola");
+        //Controller.value.add(ctx.expression().reference().getText());
     }
 
 }
