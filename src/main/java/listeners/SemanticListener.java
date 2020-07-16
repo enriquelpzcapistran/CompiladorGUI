@@ -61,7 +61,7 @@ public class SemanticListener extends MiniJavaBaseListener
         String id = ctx.Id().getText();
 
         if (Controller.methodId.contains(id)){
-            parser.notifyErrorListeners("Metodo duplicado : " + id);
+            parser.notifyErrorListeners("Método duplicado : " + id);
         	Controller.methodId.add(id);
         	}
         else
@@ -84,6 +84,7 @@ public class SemanticListener extends MiniJavaBaseListener
 
         String id = ctx.Id().getText();
         String posicion = ctx.Id().getSymbol().toString();
+        //Controller.scope.add(posicion);
         posicion = posicion.substring(ctx.Id().getSymbol().toString().length() - 4);
         Controller.pos.add(posicion.substring(0,3));
 
@@ -117,7 +118,9 @@ public class SemanticListener extends MiniJavaBaseListener
             Controller.types.add(t1);
         }
         //Controller.value.add(Controller.map.get(ctx.getText()));
-        //Controller.value.add(Controller.variables.);
+        String val = ctx.getRuleContext().getText();
+        //Controller.scope.add(val);
+        Controller.value.add(val.substring(val.indexOf('=')+1, val.indexOf(';')));
     }
 
     @Override public void exitGoExp(MiniJavaParser.GoExpContext ctx)
@@ -131,7 +134,8 @@ public class SemanticListener extends MiniJavaBaseListener
             if (!t1.equals(t2))
                 parser.notifyErrorListeners("En variable -> "+ id2 +" -> No se puede asignar '" + t2 + "' a '" + t1 + "'");
         }
-        Controller.value.add(Controller.map.get(ctx.reference().getText()));
+        //Controller.value.add("hola");
+        //Controller.value.add(ctx.expression().reference().getText());
     }
 
 }

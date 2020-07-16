@@ -64,17 +64,20 @@ public class Controller
     public static ArrayList<String> value = new ArrayList<>();
     public static ArrayList<String> types = new ArrayList<>();
     public static ArrayList<String> pos = new ArrayList<>();
+    public static ArrayList<String> scope = new ArrayList<>();
     
     public static ArrayList<ArrayList<String>> TablaSim = new ArrayList<>();
     //public static ArrayList<CodeGen> codeGens = new ArrayList<>();
 
     public void initialize()
     {
-        tokenView.setPlaceholder(new Label("Haga click en Ejecutar"));
+    	
+    	System.out.println(variables.toString());
+        tokenView.setPlaceholder(new Label("Click en Ejecutar"));
         tLexeme.setCellValueFactory(new PropertyValueFactory<>("tok"));
         tClass.setCellValueFactory(new PropertyValueFactory<>("cl"));
 
-        tablaSimbolosView.setPlaceholder(new Label("Haga click en Ejecutar"));
+        tablaSimbolosView.setPlaceholder(new Label("Generaciòn de Tabla Abajo"));
         sNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
         sTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         sValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
@@ -102,6 +105,12 @@ public class Controller
         Controller.methodId.clear();
         Controller.classId.clear();
         Controller.map.clear();
+        Controller.value.clear();
+        Controller.pos.clear();
+        Controller.types.clear();
+        Controller.scope.clear();
+        
+        
         Controller.TablaSim.clear();
         //Controller.codeGens.clear();
         //Controller.types.clear();
@@ -140,7 +149,7 @@ public class Controller
             newToken newToken = new newToken(token.getText(), lexer.getVocabulary().getSymbolicName(token.getType()));
             if (newToken.getCl().equals("ERROR"))
             {
-                status.appendText("Linea : " + token.getLine() + " -> " + newToken.getTok() + " no es un ID. \n");
+                status.appendText("Línea : " + token.getLine() + " -> " + newToken.getTok() + " no es un ID. \n");
                 Controller.lexerError = true;
             }
             else
@@ -150,7 +159,7 @@ public class Controller
         if(!lexerError)
         {
 
-            status.setText("Analisis Lexico terminado exitosamente!\n");
+            status.setText("Análisis Léxico terminado exitosamente!\n");
 
             MiniJavaParser parser = new MiniJavaParser(tokenStream);
             parser.removeErrorListeners();
@@ -159,7 +168,7 @@ public class Controller
             ParserRuleContext tree = parser.minijava();
             if (!parserError)
             {
-                status.appendText("Parsing y Analisis Semantico terminado exitosamente!\n");
+                status.appendText("Parsing y Análisis Semántico terminado exitosamente!\n");
 
                 //ParseTreeWalker treeWalker = new ParseTreeWalker();
                 //treeWalker.walk(new CodeGeneratorListener(), tree);
@@ -170,19 +179,37 @@ public class Controller
                 
                 status.appendText("--------------------------------------"
                 		+ "\nGenerando Tabla de Simbolos\n--------------------------------------\n");
-                status.appendText("Simbolo:\n");
-                status.appendText("Nombre -> "+variables.toString());
-                status.appendText("\nTipo -> "+types.toString());
-                status.appendText("\nValor -> [1, 10, false] "+ value.toString());
-                status.appendText("\nPosicion -> "+ pos.toString());
-                status.appendText("\nAlcance Metodo -> "+methodId.toString());
-                status.appendText("\nAlcance Clase -> "+classId.toString());
-            	System.out.println("Variables -> " + variables.toString());
-                System.out.println("Tipos -> " + types.toString());
-            	System.out.println("Metodos -> " + methodId.toString());
-                System.out.println("Valores -> " + value.toString());
-            	System.out.println("Nombre Clase -> " + classId.toString());
-                System.out.println("Tabla simbolos -> " + TablaSim.toString());
+                status.appendText("Tabla de Simbolos:\n");
+                status.appendText("Nombre\tTipo\t\tValor\tLinea:Columna\t\tAlcance Mètodo\tAlcance Clase\n");
+                for(int i = 0; i < variables.size(); i++){
+                	status.appendText(variables.get(i)+"\t\t");
+                	if(types.get(i).equals("boolean")){
+
+                		status.appendText(types.get(i)+"\t");
+                	}else
+                		status.appendText(types.get(i)+"\t\t");
+                	status.appendText(value.get(i)+"\t\t");
+                	status.appendText(pos.get(i)+"\t\t\t\t");
+                	
+                	if(methodId.size() == 1){
+                    	status.appendText(methodId.get(0)+"\t\t\t\t");
+                	}else
+                		status.appendText(methodId.get(i)+"\t\t\t\t");
+                	if(classId.size() == 1){
+                		status.appendText(classId.get(0)+"\t\t\n");
+                	}else
+                		status.appendText(classId.get(i)+"\t\t\n");
+                }
+                //status.appendText("Nombre ----> \t\t"+variables);
+                //status.appendText("\nTipo --------> \t\t"+types.toString());
+                //status.appendText("\nValor -------> \t\t"+ value.toString());
+                //status.appendText("\nLínea:Columna -> \t"+ pos.toString());
+                //status.appendText("\nAlcance Metodo -> "+methodId.toString());
+                //status.appendText("\nAlcance Clase -> \t"+classId.toString());
+                //status.appendText("\nScope -> \t"+scope.toString());
+            	System.out.println(variables.toString());
+            	System.out.println(methodId.toString());
+            	System.out.println(classId.toString());
             	System.out.println(map.toString().charAt(1));
             	//sNombre.setCellValueFactory(new PropertyValueFactory<>(variables.get(0)));
                 //tablaSimbolosView.getColumns().add(variables.toString());
