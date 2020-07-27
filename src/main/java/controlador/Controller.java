@@ -1,13 +1,12 @@
 package controlador;
 
+import listeners.CodeGeneratorListener;
 import listeners.SemanticListener;
-//import abs.CodeGen;
-//import abs.SymbolTable;
+import abs.CodeGen;
 import abs.newToken;
 import antlr.MiniJavaLexer;
 import antlr.MiniJavaParser;
 import entidades.Identifier;
-//import abs.SymbolTableModel;
 import error.LexerError;
 import error.ParserError;
 
@@ -37,11 +36,11 @@ public class Controller
     @FXML TableColumn<ArrayList<String>, String> sPosicion;
     @FXML TableColumn<ArrayList<String>, String> sAlcance;
     
-    //@FXML TableView<CodeGen> codeTable;
-    //@FXML TableColumn<CodeGen, String> op;
-    //@FXML TableColumn<CodeGen, String> src1;
-    //@FXML TableColumn<CodeGen, String> src2;
-    //@FXML TableColumn<CodeGen, String> dest;
+    @FXML TableView<CodeGen> codeTable;
+    @FXML TableColumn<CodeGen, String> op;
+    @FXML TableColumn<CodeGen, String> src1;
+    @FXML TableColumn<CodeGen, String> src2;
+    @FXML TableColumn<CodeGen, String> dest;
 
     @FXML Button runButton;
     @FXML TextArea status;
@@ -64,9 +63,10 @@ public class Controller
     public static ArrayList<String> value = new ArrayList<>();
     public static ArrayList<String> types = new ArrayList<>();
     public static ArrayList<String> pos = new ArrayList<>();
+    public static ArrayList<String> scope = new ArrayList<>();
     
     public static ArrayList<ArrayList<String>> TablaSim = new ArrayList<>();
-    //public static ArrayList<CodeGen> codeGens = new ArrayList<>();
+    public static ArrayList<CodeGen> codeGens = new ArrayList<>();
 
     public void initialize()
     {
@@ -76,17 +76,17 @@ public class Controller
         tLexeme.setCellValueFactory(new PropertyValueFactory<>("tok"));
         tClass.setCellValueFactory(new PropertyValueFactory<>("cl"));
 
-        tablaSimbolosView.setPlaceholder(new Label("Click en Ejecutar"));
+        tablaSimbolosView.setPlaceholder(new Label("Generaciòn de Tabla Abajo"));
         sNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
         sTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         sValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
         sPosicion.setCellValueFactory(new PropertyValueFactory<>("posicion"));
         sAlcance.setCellValueFactory(new PropertyValueFactory<>("alcance"));
-        //codeTable.setPlaceholder(new Label("Click en Ejecutar"));
-        //op.setCellValueFactory(new PropertyValueFactory<>("op"));
-        //src1.setCellValueFactory(new PropertyValueFactory<>("src1"));
-        //src2.setCellValueFactory(new PropertyValueFactory<>("src2"));
-        //dest.setCellValueFactory(new PropertyValueFactory<>("dest"));
+        codeTable.setPlaceholder(new Label("Click en Ejecutar"));
+        op.setCellValueFactory(new PropertyValueFactory<>("op"));
+        src1.setCellValueFactory(new PropertyValueFactory<>("src1"));
+        src2.setCellValueFactory(new PropertyValueFactory<>("src2"));
+        dest.setCellValueFactory(new PropertyValueFactory<>("dest"));
 
     }
 
@@ -94,8 +94,8 @@ public class Controller
     {
         tokenView.getItems().clear();
         tokenView.refresh();
-        //codeTable.getItems().clear();
-        //codeTable.refresh();
+        codeTable.getItems().clear();
+        codeTable.refresh();
         tablaSimbolosView.getItems().clear();
         tablaSimbolosView.refresh();
         status.clear();
@@ -104,9 +104,15 @@ public class Controller
         Controller.methodId.clear();
         Controller.classId.clear();
         Controller.map.clear();
+        Controller.value.clear();
+        Controller.pos.clear();
+        Controller.types.clear();
+        Controller.scope.clear();
+        
+        
         Controller.TablaSim.clear();
-        //Controller.codeGens.clear();
-        //Controller.types.clear();
+        Controller.codeGens.clear();
+        Controller.types.clear();
 
         Controller.lexerError  = false;
         Controller.parserError = false;
@@ -123,8 +129,8 @@ public class Controller
         runButton.setDisable(true);
         tokenView.getItems().clear();
         tokenView.refresh();
-        //codeTable.getItems().clear();
-        //codeTable.refresh();
+        codeTable.getItems().clear();
+        codeTable.refresh();
         tablaSimbolosView.getItems().clear();
         tablaSimbolosView.refresh();
         status.clear();
@@ -163,31 +169,52 @@ public class Controller
             {
                 status.appendText("Parsing y Análisis Semántico terminado exitosamente!\n");
 
-                //ParseTreeWalker treeWalker = new ParseTreeWalker();
-                //treeWalker.walk(new CodeGeneratorListener(), tree);
+                ParseTreeWalker treeWalker = new ParseTreeWalker();
+                treeWalker.walk(new CodeGeneratorListener(), tree);
 
-                //status.appendText("Generación de Código terminado exitosamente!\n");
-                //System.out.print(text.getText());
+                status.appendText("Generación de Código terminado exitosamente!\n");
+                System.out.print(text.getText());
             	//new MainGUI(tokenStream.getText());
                 
                 status.appendText("--------------------------------------"
                 		+ "\nGenerando Tabla de Simbolos\n--------------------------------------\n");
-                status.appendText("Simbolo:\n");
-                status.appendText("Nombre -> "+variables.toString());
-                status.appendText("\nTipo -> "+types.toString());
-                status.appendText("\nValor -> [1, 10, false] "+ value.toString());
-                status.appendText("\nPosicion -> "+ pos.toString());
-                status.appendText("\nAlcance Metodo -> "+methodId.toString());
-                status.appendText("\nAlcance Clase -> "+classId.toString());
+                status.appendText("Tabla de Simbolos:\n");
+                status.appendText("Nombre\tTipo\t\tValor\tLinea:Columna\t\tAlcance Mètodo\tAlcance Clase\n");
+                for(int i = 0; i < variables.size(); i++){
+                	status.appendText(variables.get(i)+"\t\t");
+                	if(types.get(i).equals("boolean")){
+
+                		status.appendText(types.get(i)+"\t");
+                	}else
+                		status.appendText(types.get(i)+"\t\t");
+                	status.appendText(value.get(i)+"\t\t");
+                	status.appendText(pos.get(i)+"\t\t\t\t");
+                	
+                	if(methodId.size() == 1){
+                    	status.appendText(methodId.get(0)+"\t\t\t\t");
+                	}else
+                		status.appendText(methodId.get(i)+"\t\t\t\t");
+                	if(classId.size() == 1){
+                		status.appendText(classId.get(0)+"\t\t\n");
+                	}else
+                		status.appendText(classId.get(i)+"\t\t\n");
+                }
+                //status.appendText("Nombre ----> \t\t"+variables);
+                //status.appendText("\nTipo --------> \t\t"+types.toString());
+                //status.appendText("\nValor -------> \t\t"+ value.toString());
+                //status.appendText("\nLínea:Columna -> \t"+ pos.toString());
+                //status.appendText("\nAlcance Metodo -> "+methodId.toString());
+                //status.appendText("\nAlcance Clase -> \t"+classId.toString());
+                //status.appendText("\nScope -> \t"+scope.toString());
             	System.out.println(variables.toString());
             	System.out.println(methodId.toString());
             	System.out.println(classId.toString());
             	System.out.println(map.toString().charAt(1));
             	//sNombre.setCellValueFactory(new PropertyValueFactory<>(variables.get(0)));
                 //tablaSimbolosView.getColumns().add(variables.toString());
-                //codeTable.getItems().addAll(codeGens);
+                codeTable.getItems().addAll(codeGens);
 
-                //new Thread(() -> Trees.inspect(tree, parser)).start();
+                new Thread(() -> Trees.inspect(tree, parser)).start();
             }
 
         }

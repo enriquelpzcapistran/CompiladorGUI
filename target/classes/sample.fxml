@@ -9,15 +9,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="781.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.Controller">
+<AnchorPane id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="770.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.Controller">
    <children>
-      <Button fx:id="runButton" layoutX="373.0" layoutY="676.0" mnemonicParsing="false" onAction="#run" prefHeight="36.0" prefWidth="89.0" text="Ejecutar" />
-      <TextArea fx:id="status" editable="false" layoutX="14.0" layoutY="550.0" prefHeight="115.0" prefWidth="748.0">
+      <Button fx:id="runButton" layoutX="370.0" layoutY="665.0" mnemonicParsing="false" onAction="#run" prefHeight="30.0" prefWidth="80.0" text="Ejecutar" />
+      <TextArea fx:id="status" editable="false" layoutX="14.0" layoutY="495.0" prefHeight="165.0" prefWidth="748.0">
          <font>
             <Font name="Source Code Pro" size="15.0" />
          </font></TextArea>
-      <Button layoutX="646.0" layoutY="682.0" mnemonicParsing="false" onAction="#clean" text="Limpiar" />
-      <TabPane layoutX="495.0" layoutY="14.0" prefHeight="524.0" prefWidth="265.0" tabClosingPolicy="UNAVAILABLE">
+      <Button layoutX="64.0" layoutY="672.0" mnemonicParsing="false" onAction="#clean" text="Limpiar" />
+      <TabPane layoutX="499.0" layoutY="25.0" prefHeight="450.0" prefWidth="265.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Análisis Léxico">
                <content>
@@ -29,7 +29,6 @@
                   </TableView>
                </content>
           </Tab>
-          <!--Your comment-->
           <Tab text="Tabla de Símbolos">
                <content>
                   <TableView fx:id="tablaSimbolosView" prefHeight="200.0" prefWidth="200.0">
@@ -43,21 +42,21 @@
                   </TableView>
                </content>
           </Tab> 
-          <!--<Tab text="Generación Código">-->
-               <!--<content>-->
-                  <!--<TableView fx:id="codeTable" prefHeight="200.0" prefWidth="200.0">-->
-                    <!--<columns>-->
-                      <!--<TableColumn fx:id="op" editable="false" prefWidth="53.0" text="OP" />-->
-                      <!--<TableColumn fx:id="src1" editable="false" prefWidth="68.0" text="src 1" />-->
-                        <!--<TableColumn fx:id="src2" editable="false" prefWidth="67.0" text="src 2" />-->
-                        <!--<TableColumn fx:id="dest" editable="false" prefWidth="77.0" text="dest" />-->
-                    <!--</columns>-->
-                  <!--</TableView>-->
-               <!--</content>-->
-          <!--</Tab>-->
+          <Tab text="Generación Código">
+               <content>
+                  <TableView fx:id="codeTable" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="op" editable="false" prefWidth="53.0" text="OP" />
+                      <TableColumn fx:id="src1" editable="false" prefWidth="68.0" text="src 1" />
+                        <TableColumn fx:id="src2" editable="false" prefWidth="67.0" text="src 2" />
+                        <TableColumn fx:id="dest" editable="false" prefWidth="77.0" text="dest" />
+                    </columns>
+                  </TableView>
+               </content>
+          </Tab>
         </tabs>
       </TabPane>
-      <TextArea fx:id="text" layoutX="14.0" layoutY="14.0" prefHeight="524.0" prefWidth="465.0">
+      <TextArea fx:id="text" layoutX="14.0" layoutY="25.0" prefHeight="450.0" prefWidth="465.0">
          <font>
             <Font name="Source Code Pro" size="14.0" />
          </font>
